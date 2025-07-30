@@ -1,0 +1,36 @@
+public class OrderProcessor {
+    public static void main(String[] args) {
+        Thread emailThread = new Thread(() -> {
+            System.out.println("Sending confirmation email...");
+            simulateTask();
+            System.out.println("Email sent.");
+        });
+
+        Thread inventoryThread = new Thread(() -> {
+            System.out.println("Updating inventory...");
+            simulateTask();
+            System.out.println("Inventory updated.");
+        });
+
+        Thread logThread = new Thread(() -> {
+            System.out.println("Logging order to database...");
+            simulateTask();
+            System.out.println("Order logged.");
+        });
+
+        // Start all threads
+        emailThread.start();
+        inventoryThread.start();
+        logThread.start();
+
+        System.out.println("Main thread finished processing order.");
+    }
+
+    private static void simulateTask() {
+        try {
+            Thread.sleep(1000);  // Simulate time-consuming task
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+}
